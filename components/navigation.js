@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 
-const isLoggedIn = '' //localStorage.getItem('token')
+const checkLogin = (process.browser) ? localStorage.getItem('token') : false
 
 class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLoggedIn: (isLoggedIn) ? !false : !true,
+            isLoggedIn: (checkLogin) ? !false : !true,
             username: '',
             password: '',
         }
@@ -17,7 +17,7 @@ class Navigation extends Component {
     }
     
     renderNavigation() {
-        if(this.state.isLoggedIn === true || isLoggedIn) return (
+        if(this.state.isLoggedIn === true || checkLogin) return (
             <div className="navbar-end">
                 <div className="navbar-item">
                     <button className="button is-success" onClick={ this.postLogout }>Logout</button>
