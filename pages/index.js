@@ -1,9 +1,9 @@
 import Layout from '../components/layout'
-import stylesheet from 'styles/index.scss'
+
+const config = require('../config.json')
 
 export default () => (
-  <Layout title='test'>
-    <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
+  <Layout title={ config.APP_NAME }>
     <h2>Home</h2>
   </Layout>
 )

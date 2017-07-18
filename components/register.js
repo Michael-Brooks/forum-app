@@ -4,12 +4,19 @@ import axios from 'axios'
 class Register extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       name: '',
       username: '',
       password: '',
       email: '',
     }
+
+    this.test = this.test.bind(this)
+  }
+
+  test() {
+    // this.props.handleLoginState(true)
   }
 
   postRegistration = () => {
@@ -21,10 +28,11 @@ class Register extends Component {
       })
         .then(function (response) {
           localStorage.setItem('token', response.data.token)
-        })
+          // this.props.handleLoginState(true)
+        }.bind(this))
         .catch(function (error) {
-          console.log(error.response.data.err.invalidAttributes)
-      })
+            console.log('error', error.response)
+        })
   }
 
   render = () => (
@@ -62,7 +70,7 @@ class Register extends Component {
               } } type="password" required name="password" placeholder="Password" />
             </p>
           </div>
-          <button className="button is-success" onClick={ this.postRegistration }>Register</button>
+          <button className="button is-success" onClick={ this.test }>Register</button>
         
       </div>
     </div>

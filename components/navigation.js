@@ -2,22 +2,21 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 
-const checkLogin = (process.browser) ? localStorage.getItem('token') : false
-
 class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLoggedIn: (checkLogin) ? !false : !true,
             username: '',
             password: '',
+            isLoggedIn: this.props.isLoggedIn
         }
 
         this.postLogout = this.postLogout.bind(this)
     }
     
     renderNavigation() {
-        if(this.state.isLoggedIn === true || checkLogin) return (
+        if(this.props.isLoggedIn === true)
+            return (
             <div className="navbar-end">
                 <div className="navbar-item">
                     <button className="button is-success" onClick={ this.postLogout }>Logout</button>
@@ -42,8 +41,10 @@ class Navigation extends Component {
     }
 
     postLogout() {
-        //localStorage.removeItem('token')
-        this.setState({isLoggedIn: false})
+        localStorage.removeItem('token')
+        this.props.handleLoginState(false)
+        console.log('props', this.props.isLoggedIn)
+        console.log('state', this.state.isLoggedIn)
     }
 
     postLogin = () => {
@@ -53,7 +54,9 @@ class Navigation extends Component {
         })
         .then(function (response) {
             localStorage.setItem('token', response.data.token)
-            this.setState({isLoggedIn: true})
+            this.props.handleLoginState(true)
+            console.log('props', this.props.isLoggedIn)
+            console.log('state', this.state.isLoggedIn)
         }.bind(this))
         .catch(function (error) {
             console.log('error', error.response)
