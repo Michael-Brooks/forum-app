@@ -22,11 +22,6 @@ const renderField = ({
   <div>
     <div className='field'>
       <input className={ `input ${ touched && error ? 'is-danger' : '' }` } {...input} placeholder={label} type={type} />
-       {/* {touched &&
-        ((error &&
-          <p className="help is-danger">
-            {error}
-          </p>))}  */}
     </div>
   </div>
 
