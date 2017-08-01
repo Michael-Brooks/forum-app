@@ -1,4 +1,5 @@
-var session = require('express-session')
+const session = require('express-session')
+const bodyParser = require('body-parser')
 const express = require('express')
 const next = require('next')
 
@@ -16,6 +17,17 @@ app.prepare()
     saveUninitialized: true,
     cookie: { secure: true }
   }))
+
+  server.use( bodyParser.json() )       // to support JSON-encoded bodies
+  server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    extended: true
+  }))
+
+  server.post('/auth', function (req, res) {
+    const sess = req.session
+    sess.token = req.body.token
+    return res.sendStatus(200)
+  })
 
   server.get('/a', (req, res) => {
     return app.render(req, res, '/b', req.query)

@@ -8,11 +8,10 @@ import RegistrationForm from './RegistrationForm'
 class Register extends Component {
 
   registerThenLogin = (values) => {
-    console.log(values)
     this.props.postRegisterThenLogin(values.name, values.username, values.email, values.password)
   }
   render() {
-    const { loggedIn } = this.props
+    const { loggedIn } = this.props.user
 
     if(process.browser && loggedIn) history.go(-1)
     
@@ -24,7 +23,7 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = ({ loggedIn }) => ({ loggedIn })
+const mapStateToProps = ({ user }) => ({ user })
 
 const mapDispatchToProps = (dispatch) => {
     return {

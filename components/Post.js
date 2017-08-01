@@ -15,7 +15,6 @@ class Post extends Component {
   }
 
   onClosePost = () => {
-    console.log('local closing')
     this.props.closePost();
   }
   render() {

@@ -19,7 +19,7 @@ class Navigation extends Component {
     }
     
     renderNavigation() {
-        if(this.props.loggedIn === true)
+        if(this.props.user.loggedIn === true)
             return (
             <div className="navbar-end">
                 <div className="navbar-item">
@@ -39,7 +39,8 @@ class Navigation extends Component {
     }
 
     render () {
-        const { loggedIn, showPost } = this.props
+        const { loggedIn } = this.props.user
+        const { showPost } = this.props.post
 
         return (
             <div>
@@ -67,7 +68,7 @@ class Navigation extends Component {
     
 }
 
-const mapStateToProps = ({ loggedIn, showPost }) => ({ loggedIn, showPost })
+const mapStateToProps = ({ user, post }) => ({ user, post })
 
 const mapDispatchToProps = (dispatch) => {
     return {
